@@ -33,10 +33,10 @@ public class MessageController {
             logger.info("Received request to send message: {}", message);
             kafkaProducer.sendMessage(message);
             return ResponseEntity.ok(new ApiResponse<>(true, "Message sent successfully", message));
-        } catch (Exception e) {
-            logger.error("Error sending message", e);
+        } catch (Exception error) {
+            logger.error("Error sending message", error);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse<>(false, "Failed to send message: " + e.getMessage(), null));
+                    .body(new ApiResponse<>(false, "Failed to send message: " + error.getMessage(), null));
         }
     }
     
@@ -46,10 +46,10 @@ public class MessageController {
             logger.info("Received request to send JSON message: {}", request.getMessage());
             kafkaProducer.sendMessage(request.getMessage());
             return ResponseEntity.ok(new ApiResponse<>(true, "Message sent successfully", null));
-        } catch (Exception e) {
-            logger.error("Error sending JSON message", e);
+        } catch (Exception error) {
+            logger.error("Error sending JSON message", error);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse<>(false, "Failed to send message: " + e.getMessage(), null));
+                    .body(new ApiResponse<>(false, "Failed to send message: " + error.getMessage(), null));
         }
     }
     
@@ -59,8 +59,8 @@ public class MessageController {
             logger.debug("Fetching all messages");
             List<Message> messages = messageStorageService.getAllMessages();
             return ResponseEntity.ok(new ApiResponse<>(true, "Messages retrieved successfully", messages));
-        } catch (Exception e) {
-            logger.error("Error retrieving messages", e);
+        } catch (Exception error) {
+            logger.error("Error retrieving messages", error);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(false, "Failed to retrieve messages", null));
         }
@@ -77,8 +77,8 @@ public class MessageController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ApiResponse<>(false, "Message not found", null));
             }
-        } catch (Exception e) {
-            logger.error("Error retrieving message by id", e);
+        } catch (Exception error) {
+            logger.error("Error retrieving message by id", error);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(false, "Failed to retrieve message", null));
         }
@@ -89,8 +89,8 @@ public class MessageController {
         try {
             int count = messageStorageService.getMessageCount();
             return ResponseEntity.ok(new ApiResponse<>(true, "Message count retrieved", count));
-        } catch (Exception e) {
-            logger.error("Error getting message count", e);
+        } catch (Exception error) {
+            logger.error("Error getting message count", error);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(false, "Failed to get message count", null));
         }
@@ -102,8 +102,8 @@ public class MessageController {
             logger.info("Clearing all messages");
             messageStorageService.clearMessages();
             return ResponseEntity.ok(new ApiResponse<>(true, "All messages cleared", null));
-        } catch (Exception e) {
-            logger.error("Error clearing messages", e);
+        } catch (Exception error) {
+            logger.error("Error clearing messages", error);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse<>(false, "Failed to clear messages", null));
         }
