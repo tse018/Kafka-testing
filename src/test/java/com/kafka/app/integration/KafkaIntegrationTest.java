@@ -32,7 +32,8 @@ class KafkaIntegrationTest {
     private KafkaProducer kafkaProducer;
 
     @Autowired
-    private KafkaConsumer kafkaConsumer;
+    @SuppressWarnings("unused")
+    private KafkaConsumer kafkaConsumer;  // Used implicitly through message consumption flow
 
     @Autowired
     private MessageStorageService messageStorageService;

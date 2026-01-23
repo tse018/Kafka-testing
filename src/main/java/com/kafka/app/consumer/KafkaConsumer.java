@@ -34,7 +34,9 @@ public class KafkaConsumer {
                     UUID.randomUUID().toString(),
                     messageContent,
                     System.currentTimeMillis(),
-                    "PROCESSED"
+                    "PROCESSED",
+                    null,
+                    null
             );
             
             messageStorageService.addMessage(message);

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -113,8 +113,8 @@ class MessageControllerTest {
     @DisplayName("Should retrieve all messages")
     void testGetAllMessages() throws Exception {
         // Arrange
-        Message msg1 = new Message("id1", "Content 1", System.currentTimeMillis(), "PROCESSED");
-        Message msg2 = new Message("id2", "Content 2", System.currentTimeMillis(), "PROCESSED");
+        Message msg1 = new Message("id1", "Content 1", System.currentTimeMillis(), "PROCESSED", null, null);
+        Message msg2 = new Message("id2", "Content 2", System.currentTimeMillis(), "PROCESSED", null, null);
         List<Message> messages = Arrays.asList(msg1, msg2);
 
         when(messageStorageService.getAllMessages()).thenReturn(messages);
@@ -152,7 +152,7 @@ class MessageControllerTest {
     @DisplayName("Should retrieve message by ID")
     void testGetMessageById() throws Exception {
         // Arrange
-        Message message = new Message("id1", "Test content", System.currentTimeMillis(), "PROCESSED");
+        Message message = new Message("id1", "Test content", System.currentTimeMillis(), "PROCESSED", null, null);
         when(messageStorageService.getMessageById("id1")).thenReturn(message);
 
         // Act & Assert
@@ -311,7 +311,7 @@ class MessageControllerTest {
     void testGetCorrectMessageContent() throws Exception {
         // Arrange
         String expectedContent = "Expected message content";
-        Message message = new Message("id1", expectedContent, System.currentTimeMillis(), "PROCESSED");
+        Message message = new Message("id1", expectedContent, System.currentTimeMillis(), "PROCESSED", null, null);
         when(messageStorageService.getMessageById("id1")).thenReturn(message);
 
         // Act & Assert
